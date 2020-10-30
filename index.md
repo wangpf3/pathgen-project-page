@@ -19,7 +19,8 @@ of the paths.
 - **Relevance**: We filter out a subset of relational types that we assume to be unhelpful for answering commonsense questions, e.g., RelatedTo, prior to sampling.
 - **Informativeness**: We require all relations types in a path to be distinct so it would not be trivial.
 
-2. Fine-tune a pretrained language model --GPT-2 on the sample paths. This would transfer the rich knowledge encoded in GPT-2 to our path generator.
+2. Fine-tune a pretrained language model --GPT-2 on the sample paths. This would transfer the rich knowledge encoded in GPT-2 to our path generator for combatting 
+the sparsity of KGs.
 
 ## Path generator as a plug-in for other knowledge-intencive tasks
 If you would like to try out our path generator to provide structured knowledge for other downstream tasks,
