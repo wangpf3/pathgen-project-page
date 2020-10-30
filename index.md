@@ -11,7 +11,7 @@ we firstly extract a pair of entities mentioned in the context (step 1).
 Then our generator outputs a potentially novel, multi-hop relational path to connect them (step 2).
 Later, all such paths serve as structured evidence for solving commonsense questions (step 3).
 
-![Image of pipeline](https://github.com/wangpf3/test-project-page/blob/gh-pages/pipeline.png?raw=true)
+![Image of pipeline](https://github.com/wangpf3/pathgen-project-page/blob/gh-pages/pipeline.png?raw=true)
 
 ## How to learn such a path generator?
 1. Sample a set of relational path from a commonsense KG with random walk. We adopt some heuristic strategies to ensure the relevance and informativeness
