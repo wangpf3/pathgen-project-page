@@ -1,37 +1,42 @@
-## Welcome to GitHub Pages
+## Motivation
 
-You can use the [editor on GitHub](https://github.com/wangpf3/pathgen-project-page/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+Commonsense question answering requires general background knowledge which is not explicitly stated in the given context. 
+Prior works rely on existing knowledge graphs (KGs) to obtain their knowledge for reasoning.
+However, these KGs are not completed and may not contain the knowledge necessary to answer a question.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## Our method
+In this work, we augment a general commonsense QA framework with a **knowledgeable path generator**.
+As depicted in the figure below,
+we firstly extract a pair of entities mentioned in the context (step 1).
+Then our generator outputs a potentially novel, multi-hop relational path to connect them (step 2).
+Later, all such paths serve as structured evidence for solving commonsense questions (step 3).
 
-### Markdown
+![Image of pipeline](https://github.com/wangpf3/test-project-page/blob/gh-pages/pipeline.png?raw=true)
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+## How to learn such a path generator?
+1. Sample a set of relational path from a commonsense KG with random walk. We adopt some heuristic strategies to ensure the relevance and informativeness
+of the paths.
+- **Relevance**: We filter out a subset of relational types that we assume to be unhelpful for answering commonsense questions, e.g., RelatedTo, prior to sampling.
+- **Informativeness**: We require all relations types in a path to be distinct so it would not be trivial.
 
-```markdown
-Syntax highlighted code block
+2. Fine-tune a pretrained language model --GPT-2 on the sample paths. This would transfer the rich knowledge encoded in GPT-2 to our path generator.
 
-# Header 1
-## Header 2
-### Header 3
+## Path generator as a plug-in for other knowledge-intencive tasks
+If you would like to try out our path generator to provide structured knowledge for other downstream tasks,
+you can find how to use it as a plug-in module in our [notebook](https://github.com/wangpf3/Commonsense-Path-Generator/blob/main/A-Commonsense-Path-Generator-for-Connecting-Entities.ipynb). We also provide a well-trained generator checkpoint to [download](https://drive.google.com/file/d/1dQNxyiP4g4pdFQD6EPMQdzNow9sQevqD/view?usp=sharing).
 
-- Bulleted
-- List
 
-1. Numbered
-2. List
+## Experiments
+We conduct extensive experiments on both [OpenBookQA](https://leaderboard.allenai.org/open_book_qa/submissions/public) and [CommonsenseQA](https://www.tau-nlp.org/csqa-leaderboard), which demonstrate the effectiveness of our method in improving previous systems with static KG (by up to 6% in accuracy).
+Experiments in low-resource setting also show the rubustness of our method to less training data.
 
-**Bold** and _Italic_ and `Code` text
 
-[Link](url) and ![Image](src)
+## To cite
 ```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/wangpf3/pathgen-project-page/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+@article{wang2020connecting,
+  title={Connecting the Dots: A Knowledgeable Path Generator for Commonsense Question Answering},
+  author={Wang, Peifeng and Peng, Nanyun and Szekely, Pedro and Ren, Xiang},
+  journal={arXiv preprint arXiv:2005.00691},
+  year={2020}
+}
+```
